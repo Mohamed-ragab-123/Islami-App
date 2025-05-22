@@ -39,46 +39,36 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             fit: BoxFit.fill,
             width: double.infinity,
           ),
-          Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child:
-                model.index == 8 ?
-                const SizedBox(height: 16) :
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Image.asset(
-                    "assets/images/basmalah.png",
-                    height: 50,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                )
-              ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                          child: Text(
-                            suraContent,
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontSize: 32
-                            ),
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.justify,
-                          ),
-                        );
-                        },
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
-                    itemCount: 1,
-                  ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(32, 50, 32, 120),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    model.index == 8 ?
+                    const SizedBox(height: 16) :
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Image.asset(
+                        "assets/images/basmalah.png",
+                        height: 50,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      suraContent,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 28,
+                        height: 2,
+                      ),
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              )
+            ),
           ),
         ],
       ),
@@ -89,7 +79,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
     String file = await rootBundle.loadString("assets/files/Suras/$fileName");
     List<dynamic> suraLines = file.trim().split("\n");
     for(int i = 0 ; i < suraLines.length ; i++){
-      suraLines[i] += '{${i+1}} ';
+      suraLines[i] += '﴿${i + 1}﴾ ';
     }
     suraContent = suraLines.join();
     setState(() {});
